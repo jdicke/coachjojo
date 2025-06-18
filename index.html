@@ -47,7 +47,9 @@
       },
       "sameAs": [
         "https://www.facebook.com/jojorunning",
-        "https://www.instagram.com/jojorunning"
+        "https://www.instagram.com/jojorunning",
+        "https://www.strava.com/athletes/36897161",
+        "https://www.tfrrs.org/athletes/6901415/Arizona_State/Joseph__Dicke.html"
       ]
     }
     </script>
@@ -209,6 +211,37 @@
             33% { color: #ff00ff; }
             66% { color: #00ffff; }
             100% { color: #ffff00; }
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(45deg, #8b00ff, #ff1493);
+            color: #ffffff;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 2px solid #ffff00;
+            box-shadow: 0 0 10px rgba(255,0,255,0.5);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 0px #000000;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255,255,0,0.8);
+            background: linear-gradient(45deg, #ff1493, #00ffff);
         }
 
         /* MySpace style boxes */
@@ -539,6 +572,12 @@
                 height: 120px;
                 font-size: 50px;
             }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
         }
 
         /* Cursor trail effect */
@@ -569,6 +608,15 @@
             <div class="profile-pic">🏃‍♂️</div>
             <h1>JoJo Dicke</h1>
             <p class="tagline">Your Elite Running Coach ⚡ Breaking Limits Since 2012 ⚡</p>
+            
+            <div class="social-links">
+                <a href="https://www.strava.com/athletes/36897161" target="_blank" rel="noopener noreferrer" class="social-link">
+                    🏃‍♂️ My Strava
+                </a>
+                <a href="https://www.tfrrs.org/athletes/6901415/Arizona_State/Joseph__Dicke.html" target="_blank" rel="noopener noreferrer" class="social-link">
+                    🏆 Track PRs
+                </a>
+            </div>
         </header>
 
         <div class="marquee">
@@ -682,64 +730,3 @@
                     Seriously, I only work with 15 athletes max. When it's full, it's FULL! 💯
                 </p>
             </section>
-        </main>
-    </div>
-
-    <script>
-        // Cursor trail effect
-        document.addEventListener('mousemove', (e) => {
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.remove();
-            }, 500);
-        });
-
-        // Counter animation for stats
-        const animateCounters = () => {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = counter.textContent;
-                const numericTarget = target.includes(':') ? 
-                    parseInt(target.split(':')[0]) * 60 + parseInt(target.split(':')[1]) :
-                    parseInt(target.replace(/\D/g, ''));
-                const suffix = target.replace(/[\d:]/g, '');
-                let current = 0;
-                const increment = numericTarget / 50;
-                
-                const updateCounter = () => {
-                    if (current < numericTarget) {
-                        current += increment;
-                        if (target.includes(':')) {
-                            const mins = Math.floor(current / 60);
-                            const secs = Math.floor(current % 60);
-                            counter.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
-                        } else {
-                            counter.textContent = Math.floor(current) + suffix;
-                        }
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                const statsObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            setTimeout(updateCounter, Math.random() * 1000);
-                            statsObserver.unobserve(entry.target);
-                        }
-                    });
-                });
-                
-                statsObserver.observe(counter.closest('.stat-box'));
-            });
-        };
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('
